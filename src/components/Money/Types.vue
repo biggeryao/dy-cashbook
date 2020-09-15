@@ -13,16 +13,20 @@
 
 import Vue from 'vue';
 
-import {Component} from 'vue-property-decorator';
-@Component({
-  props:{
-    propMessage:String
-  }
-})//自动将下面代码转换为data、method等等
+import {Component, Prop} from 'vue-property-decorator';
+@Component
+
+
 
 export default  class Types extends Vue {
   type = '-'// '-'表示支出，'+'表示收入
-  helloMsg='hello,'+this.propMessage;
+  @Prop(Number) propA: number|undefined
+  //自动将下面代码转换为data、method等等
+  //Number告诉vue  propA 是个number    运行时
+  //@Prop是个装饰器  告诉vue  propA不是data而是prop
+  //number|undefined 就是propA的类型   编译时
+
+
   selectType(type: string) {
     if (type !== '-' && type !== '+') {
       throw new Error('type id unknown')
@@ -33,21 +37,6 @@ export default  class Types extends Vue {
 }
 
 
-// export default {
-//   name: 'Types',
-//   data(){
-//     return {
-//       type:'-' // '-'表示支出，'+'表示收入
-//     }},
-//   methods:{
-//     selectType(type){
-//       if(type!=='-'&&type!=='+'){
-//         throw new Error('type id unknown')
-//       }
-//       this.type=type
-//     }
-//   }
-// };
 </script>
 
 <style lang="scss" scoped>
